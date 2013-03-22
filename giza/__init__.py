@@ -18,46 +18,16 @@ from .config import settings
 from .models import initialize_sql
 from .views.resources import Root
 
-def silent_none(value):
-    if value is None:
-        return ''
-    return value
-
-
-def get_current_user(request):
-    return None
-    """
-    uid = authenticated_userid(request)
-    user = api.profile.get_user(user_id=uid) if uid is not None else None
-    return user
-    """
-
-
-def get_impersonator_user(request):
-    return None
-    """
-    uid = request.session.get('impersonator_id')
-    user = api.profile.get_user(user_id=uid) if uid is not None else None
-    return user
-    """
-
-
-def groupfinder(user_id, request):
-    groups = None # unknown/unauthed user
-    """
-    try:
-        groups = api.auth.get_groups(user_id)
-    except api.ApiError:
-        pass
-    """
-
-    return groups 
-
 
 def configure_jinja(config):
     config.include('pyramid_jinja2')
     config.add_renderer('.html', renderer_factory)
     config.add_renderer('.tmpl', renderer_factory)
+
+    def silent_none(value):
+        if value is None:
+            return ''
+        return value
 
     jinja2_env = config.get_jinja2_environment()
     jinja2_env.finalize = silent_none
@@ -97,6 +67,9 @@ def configure_jinja(config):
 def configure_auth(config):
     the_settings = config.registry.settings
 
+    def groupfinder(user_id, request):
+        return None # unknown/unauthed user
+
     auth_policy_secret = the_settings['giza.authn_secret']
     policy = AuthTktAuthenticationPolicy(
         auth_policy_secret,
@@ -106,7 +79,14 @@ def configure_auth(config):
     config.set_authentication_policy(policy)
     config.set_authorization_policy(ACLAuthorizationPolicy())
 
+    def get_current_user(request):
+        return None
+
     config.add_request_method(get_current_user, str('current_user'), reify=True)
+
+    def get_impersonator_user(request):
+        return None
+
     config.add_request_method(get_impersonator_user, str('impersonator_user'), reify=True)
 
     session_cookie_name = str(the_settings['giza.session_cookie']) # can't be unicode
