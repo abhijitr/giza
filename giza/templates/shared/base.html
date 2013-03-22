@@ -1,0 +1,20 @@
+{% extends "shared/uber.html" %}
+
+{% block title %}My Giza Project{% endblock %}
+
+{% block body %}
+
+    {% include 'shared/nav.html' %}
+
+    {% block feature %}
+    {% endblock %}
+
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+        
+    </div>
+
+    {% include 'shared/footer.html' %}
+
+{% endblock %}
