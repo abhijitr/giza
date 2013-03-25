@@ -36,18 +36,17 @@ def configure_jinja(config):
     config.add_jinja2_extension('webassets.ext.jinja2.AssetsExtension')
     assets_env = config.get_webassets_env()
     jinja2_env.assets_environment = assets_env
-    assets_env.config['less_run_in_debug'] = False
 
+    #assets_env.config['requirejs_extra_args'] = '-o'
     jsmin = Bundle(
-        'vendor/js/bootstrap.js',
-        'vendor/js/underscore.js',
-        'vendor/js/backbone.js',
-        'app/js/main.js',
-        filters='uglifyjs',
-        output='js/main-%(version)s.min.js'
+        'app/js/build.js',
+        filters='requirejs,uglifyjs',
+        output='js/main-%(version)s.min.js',
+        depends=['**/*.js','**/*.hbs']
     )
     config.add_webasset('jsmin', jsmin)
 
+    assets_env.config['less_run_in_debug'] = False
     less = Bundle(
         'vendor/less/bootstrap.less',
         'vendor/less/responsive.less',

@@ -38,10 +38,13 @@
         <script>window.jQuery || document.write('<script src="/vendor/js/jquery-1.9.0.min.js"><\/script>')</script>
         {% endif %}
 
-        <script src="/static/vendor/js/tiny_mce/jquery.tinymce.js"></script>
-        {% assets "jsmin" %}
-            <script type="text/javascript" src="{{ ASSET_URL }}"></script>
-        {% endassets %}
+        {% if req.registry.settings['giza.debug'] %}
+            <script type="text/javascript" data-main="/static/app/js/main.js" src="/static/vendor/js/require.js"></script>
+        {% else %}
+            {% assets "jsmin" %}
+                <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+            {% endassets %}
+        {% endif %}
 
         <script>
             var _gaq=[['_setAccount','{{request.registry.settings["giza.ga_key"]}}'],['_trackPageview']];
