@@ -7,6 +7,7 @@ Pygments==1.6
 SQLAlchemy==0.8.0
 WebOb==1.2.3
 -e git+git@github.com:abhijitr/giza.git@f07e7be42fdf72ea20c7085061116a54410c7df4#egg=giza-dev
+glob2==0.3
 psycopg2==2.4.6
 pyramid==1.4
 pyramid-debugtoolbar==1.0.4
