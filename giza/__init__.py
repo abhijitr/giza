@@ -37,7 +37,6 @@ def configure_jinja(config):
     assets_env = config.get_webassets_env()
     jinja2_env.assets_environment = assets_env
 
-    #assets_env.config['requirejs_extra_args'] = '-o'
     jsmin = Bundle(
         'app/js/build.js',
         filters='requirejs,uglifyjs',
