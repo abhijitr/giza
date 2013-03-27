@@ -8,5 +8,4 @@ pyramid['reload_templates'] = True
 
 giza['image_bucket'] = 'staging-bucket'
 
-sqlalchemy['url'] = ''
-sqlalchemy['url'] = 'postgresql+psycopg2://webapp:password@localhost:5432/giza'
+sqlalchemy['url'] = 'sqlite://'

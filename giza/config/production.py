@@ -8,6 +8,6 @@ giza['ga_key'] = ''
 giza['mixpanel_tokens']['default'] = ''
 giza['image_bucket'] = 'prod-bucket'
 
-sqlalchemy['url'] = ''
+sqlalchemy['url'] = 'sqlite://'
 
 sentry['dsn'] = ''

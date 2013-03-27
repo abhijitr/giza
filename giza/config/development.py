@@ -16,4 +16,4 @@ giza['debug'] = True
 giza['enable_queues'] = False 
 giza['image_bucket'] = 'dev-bucket'
 
-sqlalchemy['url'] = 'postgresql+psycopg2://webapp:password@localhost:5432/giza'
+sqlalchemy['url'] = 'sqlite://'

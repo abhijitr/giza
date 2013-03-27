@@ -3,7 +3,7 @@ from __future__ import absolute_import, unicode_literals
 import logging, pprint
 
 def load_settings(global_config, local_config):
-    config_module = global_config.get('config', 'dev')
+    config_module = global_config.get('config', 'development')
     logging.info('loading config: ' + config_module)
 
     # load the settings in the .ini
