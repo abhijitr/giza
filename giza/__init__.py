@@ -58,8 +58,10 @@ def configure_jinja(config):
 
     # copy images to their final destination
     base = os.path.dirname(__file__)
-    dir_util.copy_tree(base+'/static/vendor/img', base+'/static/img', update=True)
-    dir_util.copy_tree(base+'/static/app/img', base+'/static/img', update=True)
+    if os.path.isdir(base+'/static/vendor/img'):
+        dir_util.copy_tree(base+'/static/vendor/img', base+'/static/img', update=True)
+    if os.path.isdir(base+'/static/app/img'):
+        dir_util.copy_tree(base+'/static/app/img', base+'/static/img', update=True)
 
 
 def configure_auth(config):
