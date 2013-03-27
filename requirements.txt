@@ -2,11 +2,13 @@ Chameleon==2.11
 Jinja2==2.6
 Mako==0.7.3
 MarkupSafe==0.15
+Paste==1.7.5.1
 PasteDeploy==1.5.0
+PasteScript==1.7.5
 Pygments==1.6
 SQLAlchemy==0.8.0
 WebOb==1.2.3
--e git+git@github.com:abhijitr/giza.git@f07e7be42fdf72ea20c7085061116a54410c7df4#egg=giza-dev
+-e git+git@github.com:abhijitr/giza.git@d08daa518359b191686ccdf63c09ac0d29724bc2#egg=giza-dev
 glob2==0.3
 psycopg2==2.4.6
 pyramid==1.4
@@ -19,6 +21,7 @@ repoze.lru==0.6
 requests==1.1.0
 transaction==1.4.1
 translationstring==1.1
+uWSGI==1.9.2
 venusian==1.0a7
 -e git+git@github.com:abhijitr/webassets.git@e4804571642e05c5d9ef5f876d25cb72ed9a8c97#egg=webassets
 wsgiref==0.1.2
