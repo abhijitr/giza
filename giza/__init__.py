@@ -35,6 +35,7 @@ def configure_jinja(config):
     config.include('pyramid_webassets')
     config.add_jinja2_extension('webassets.ext.jinja2.AssetsExtension')
     assets_env = config.get_webassets_env()
+    assets_env.config['less_run_in_debug'] = False # set env variables before any bundles are created
     jinja2_env.assets_environment = assets_env
 
     jsmin = Bundle(
@@ -45,7 +46,6 @@ def configure_jinja(config):
     )
     config.add_webasset('jsmin', jsmin)
 
-    assets_env.config['less_run_in_debug'] = False
     less = Bundle(
         'vendor/less/bootstrap.less',
         'vendor/less/responsive.less',

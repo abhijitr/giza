@@ -10,6 +10,7 @@ requirejs.config({
     baseUrl: "/static/vendor/js",
     paths: {
         'app': '../../app/js',
+        'jquery': 'jquery-1.9.0',
     },
     shim: {
         'backbone': {
