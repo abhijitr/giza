@@ -2,8 +2,12 @@
 from __future__ import absolute_import, unicode_literals
 import logging, pprint
 
+import os
+
 def load_settings(global_config, local_config):
-    config_module = global_config.get('config', 'development')
+    config_module = os.environ.get('giza_config') or\
+                    global_config.get('config') or\
+                    'development'
     logging.info('loading config: ' + config_module)
 
     # load the settings in the .ini
