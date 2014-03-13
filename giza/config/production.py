@@ -4,10 +4,12 @@ import logging, pprint
 
 from .common import * 
 
-giza['ga_key'] = ''
-giza['mixpanel_tokens']['default'] = ''
-giza['image_bucket'] = 'prod-bucket'
+giza['host'] = ''
+giza['image_hosts'] = []
+giza['image_bucket'] = ''
+giza['require_https'] = False
+giza['js_filters'] = 'requirejs,uglifyjs'
 
-sqlalchemy['url'] = 'sqlite://'
-
-sentry['dsn'] = ''
+# Logging tweaks
+giza['logging']['handlers']['syslog']['class'] = 'logging.handlers.SysLogHandler'
+giza['logging']['handlers']['syslog']['address'] = '/dev/log'

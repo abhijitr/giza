@@ -11,12 +11,14 @@ requirejs.config({
     paths: {
         'app': '../../app/js',
         'jquery': 'jquery-1.9.0',
+        'jquery-migrate': 'jquery-migrate-1.1.1'
     },
     shim: {
         'backbone': {
-            deps: ['underscore', 'json2'],
+            deps: ['underscore', 'json2', 'jquery-migrate'],
             exports: 'Backbone'
         },
+        'jquery.easing': ['jquery'],
     },
     hbs: {
         templateExtension : 'hbs',
@@ -24,16 +26,21 @@ requirejs.config({
     },
 });
 
-requirejs(
-    [
-        'jquery',
-        'backbone',
-        'app/app',
-    ],
-    function($, Backbone, AppRouter) {
-        window.GIZA = {};
+requirejs([
+    'jquery',
+    'backbone',
+],
+function($, Backbone) {
 
-        window.GIZA.router = new AppRouter();
-        Backbone.history.start({pushState: true});
+    // Set up global singletons
+    if (!window.APP) {
+        window.APP = {};
     }
-);
+
+    // logged-in user
+    //window.APP.user = new User(window.APP_OPTIONS.USER_DATA);
+
+    var cmd = window.APP_OPTIONS.COMMAND;
+    var args = window.APP_OPTIONS.COMMAND_ARGS || [];
+
+});

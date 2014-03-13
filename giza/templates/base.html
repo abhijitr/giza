@@ -1,0 +1,61 @@
+{% extends "shared/uber.html" %}
+
+{% block viewport %}
+    <meta name="viewport" content="initial-scale=1">
+{% endblock %}
+
+{% block deeplink %}
+{% endblock %}
+
+{% block meta_data_hardcoded %}
+{% endblock %}
+
+{% block css %}
+    {{ super() }}
+    {% assets "less_app" %}
+        <link rel="{{EXTRA.rel}}" type="text/css" href="{{ ASSET_URL }}">
+    {% endassets %}
+{% endblock %}
+
+{% block body %}
+<div id="pi-container">
+    {% block content %}
+    {% endblock %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    {% block olark %}
+
+    {% endblock %}
+    
+    <script type="text/javascript">
+        {% if embed_data %}
+        window.APP_OPTIONS = {{embed_data|safe}};
+        {% else %}
+        window.APP_OPTIONS = {};
+        {% endif %}
+
+        if (!window.APP) {
+            window.APP = {};
+        }
+        window.APP.csrf_token = "{{ request.session.get_csrf_token() }}";
+        window.APP.is_mobile = {% if is_mobile %}true{% else %}false{% endif %};
+    </script>
+
+    {% if req.registry.settings['webassets.debug'] == 'True' %}
+        <script type="text/javascript" data-main="/static/app/js/main.js" src="/static/vendor/js/require.js"></script>
+    {% else %}
+        {% assets "jsmin_app" %}
+            <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+        {% endassets %}
+    {% endif %}
+
+    {% block js %}
+    
+    {% endblock %}
+{% endblock %}
+
+{% block google_analytics %}
+{% endblock %}

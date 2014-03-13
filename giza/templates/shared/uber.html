@@ -6,24 +6,56 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>{% block title %}{% endblock %}</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
+    <title>{% if meta_data %}{{ meta_data.title }}{% endif %}</title>
+    <meta name="description" content="{% if meta_data %}{{ meta_data.description }}{% endif %}">
 
-    <!-- Loads Typekit fonts -->
-    <script type="text/javascript" src="//use.typekit.net/dgo7tag.js"></script>
-    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+    {% block viewport %}
+
+    {% if req.is_ipad_app %}
+    <meta name="viewport" content="width=device-width, height=748, user-scalable=no initial-scale=1.0, maximum-scale=1.0, target-densityDpi=device-dpi">
+    {% else %}
+    <meta name="viewport" content="width=1060"> {# for now make it render as a zoomed-out page until we make it responsive #}
+    {% endif %}
+
+    {% endblock %}
 
     {% block css %}
-        {% assets "less" %}
-            <link rel="{{EXTRA.rel}}" type="text/css" href="{{ ASSET_URL }}">
-        {% endassets %}
     {% endblock %}
 
     <script src="/static/vendor/js/modernizr-2.6.2-respond-1.1.0.min.js"></script>
-    {% if req.registry.settings['giza.debug'] %}
-    <script src="/static/vendor/js/less-1.3.3.js"></script>
+    {% if req.registry.settings['webassets.debug'] == 'True' %}
+    <script src="/static/vendor/js/less-1.4.1.js"></script>
     {% endif %}
+
+    {% if meta_data and not meta_data.default %}
+    <meta property="og:type"            content="{{meta_data.og_type}}" /> 
+    <meta property="og:title"           content="{{meta_data.title}}" /> 
+    <meta property="og:description"     content="{{meta_data.description}}" /> 
+    <meta property="og:image"           content="{{meta_data.image_url}}" /> 
+    {% endif %}
+
+    {% block meta_data_hardcoded %}
+    {% if meta_data  %}
+    <meta name="twitter:card"           content="summary_large_image">
+    <meta name="twitter:title"          content="{{meta_data.title}}">
+    <meta name="twitter:description"    content="{{meta_data.description}}">
+    <meta name="twitter:image"          content="{{meta_data.image_url}}">
+    {% endif %}
+    {% endblock %}
+
+    <meta name="twitter:app:id:ipad"    content="556601714"/>
+    <meta property="twitter:account_id" content="433517689" />
+
+    {% if meta_data and meta_data.canonical_url %}
+    <link rel="canonical" href="{{meta_data.canonical_url}}" />
+    <meta property="og:url"             content="{{meta_data.canonical_url}}" /> 
+    {% endif %}
+
+    {% if meta_data and meta_data.price %}
+    <meta property="og:price:amount"    content="{{meta_data.price}}" /> 
+    <meta property="og:price:currency"  content="USD" /> 
+    {% endif %}
+
 </head>
 
 <body>
@@ -33,26 +65,23 @@
     {% block scripts %}
         {% if req.registry.settings['giza.debug'] %}
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.js"></script>
+        <script>window.jQuery || document.write('<script src="/static/vendor/js/jquery-1.9.0.js"><\/script>')</script>
         {% else %}
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="/vendor/js/jquery-1.9.0.min.js"><\/script>')</script>
+        <script>window.jQuery || document.write('<script src="/static/vendor/js/jquery-1.9.0.min.js"><\/script>')</script>
         {% endif %}
 
-        {% if req.registry.settings['giza.debug'] %}
-            <script type="text/javascript" data-main="/static/app/js/main.js" src="/static/vendor/js/require.js"></script>
-        {% else %}
-            {% assets "jsmin" %}
-                <script type="text/javascript" src="{{ ASSET_URL }}"></script>
-            {% endassets %}
-        {% endif %}
-
-        <script>
-            var _gaq=[['_setAccount','{{request.registry.settings["giza.ga_key"]}}'],['_trackPageview']];
-            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-            s.parentNode.insertBefore(g,s)}(document,'script'));
-        </script>
     {% endblock %}
+
+    {% block google_analytics %}
+    <script>
+        var _gaq=[['_setAccount','{{request.registry.settings["giza.ga_key"]}}'],['_trackPageview']];
+        (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+        g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+        s.parentNode.insertBefore(g,s)}(document,'script'));
+    </script>
+    {% endblock %}
+
 </body>
 
 </html>

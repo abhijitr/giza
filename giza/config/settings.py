@@ -4,11 +4,13 @@ import logging, pprint
 
 import os
 
+logger = logging.getLogger(__name__)
+
 def load_settings(global_config, local_config):
     config_module = os.environ.get('giza_config') or\
                     global_config.get('config') or\
                     'development'
-    logging.info('loading config: ' + config_module)
+    logger.debug('loading config: ' + config_module)
 
     # load the settings in the .ini
     settings = dict(local_config)
@@ -23,7 +25,5 @@ def load_settings(global_config, local_config):
     for k, v in dicts:
         for subkey, val in v.iteritems():
             settings['%s.%s' % (k, subkey)] = val
-
-    logging.info('starting config:\n' + pprint.pformat(settings))
 
     return settings
