@@ -1,9 +1,61 @@
 {% extends "base.html" %}
 
 {% block js %}
+    {{ super() }}
 {% endblock %}
 
-{% block content %}
-<div id="pi-container" class="">
+{% block body %}
+<header class="navbar navbar-static-top">
+ <div class="container">
+    <div class="navbar-header">
+      <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a href="/" class="navbar-brand">Giza</a>
+    </div>
+    <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+      <ul class="nav navbar-nav navbar-right">
+        <li class="active">
+          <a href="#">Home</a>
+        </li>
+        <li>
+          <a href="#">About</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+    <div class="jumbotron">
+        <h1>Giza</h1>
+        <h3>an opinionated skeleton for Pyramid apps</h3>
+        <p>
+            <!-- start slipsum code -->
+
+            The lysine contingency - it's intended to prevent the spread of the animals is case they ever got off the island. Dr. Wu inserted a gene that makes a single faulty enzyme in protein metabolism. The animals can't manufacture the amino acid lysine. Unless they're continually supplied with lysine by us, they'll slip into a coma and die.
+
+            <!-- please do not remove this line -->
+
+            <div style="display:none;">
+            <a href="http://slipsum.com">lorem ipsum</a></div>
+            <!-- end slipsum code -->
+        </p>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <h3>1 minute setup</h3>
+        </div>
+        <div class="col-md-4">
+            <h3>Encourages clean code</h3>
+        </div>
+        <div class="col-md-4">
+            <h3>Production ready</h3>
+        </div>
+    </div>
 </div>
 {% endblock %}
